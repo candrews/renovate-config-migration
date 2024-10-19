@@ -1,21 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
   "configMigration": true,
-  "regexManagers": [
-    {
-    "fileMatch": [".*\\.yml$"],
-    "matchStrings": ["TRIVY_POLICIES_IMAGE *: *\"(?<currentValue>.+?)\""],
-    "depNameTemplate": "docker",
-    "datasourceTemplate": "docker"
-    }
-  ],
   "customManagers": [
     {
-      "fileMatch": ["(^|/)Dockerfile$"],
-      "matchStrings": ["ARG COSIGN_VERSION=(?<currentValue>.+?)\\n"],
+      "customType": "regex",
+      "fileMatch": [
+        "(^|/)Dockerfile$"
+      ],
+      "matchStrings": [
+        "ARG COSIGN_VERSION=(?<currentValue>.+?)\\n"
+      ],
       "depNameTemplate": "sigstore/cosign",
       "datasourceTemplate": "github-releases"
     }
